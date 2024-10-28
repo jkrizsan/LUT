@@ -4,14 +4,16 @@ import { createGoal } from '../features/goals/goalSlice'
 
 function GoalForm() {
   const [text, setText] = useState('')
+  const [deadline, setDeadline] = useState('')
 
   const dispatch = useDispatch()
 
   const onSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(createGoal({ text }))
+    dispatch(createGoal({ text, deadline}))
     setText('')
+    setDeadline('')
   }
 
   return (
@@ -25,6 +27,14 @@ function GoalForm() {
             id='text'
             value={text}
             onChange={(e) => setText(e.target.value)}
+          />
+          <label htmlFor='text'>Deadline</label>
+          <input
+            type='deadline'
+            name='Deadline'
+            id='Deadline'
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
           />
         </div>
         <div className='form-group'>
