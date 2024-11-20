@@ -7,7 +7,6 @@ function GoalItem({ goal }) {
 
   return (
     <div className='goal'>  
-      <div>Created: {new Date(goal.createdAt).toLocaleString('en-US')}</div>
       <h2>{goal.text}</h2>
       <div>Deadline: {new Date(goal.deadline).toLocaleString('en-US')}</div>
       <button onClick={() => dispatch(deleteGoal(goal._id))} className='close'>
@@ -15,7 +14,9 @@ function GoalItem({ goal }) {
       </button>
       <nav>
         <ul>
-              <Link to={`action/${goal._id}`}>Actions</Link>
+          <u >
+             <Link to={`action/${goal._id}`}>Actions</Link>
+          </u>
         </ul>
       </nav>
     </div>

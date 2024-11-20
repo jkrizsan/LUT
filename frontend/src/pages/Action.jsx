@@ -42,7 +42,6 @@ function Action() {
   return (
     <>
       <section className='heading'>
-        <h1>Actions for the goal</h1>
         <p>Actions Dashboard </p>
       </section>
       

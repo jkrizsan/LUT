@@ -20,7 +20,7 @@ function ActionForm() {
     <section className='form'>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
-          <label htmlFor='text'>Action</label>
+          <label htmlFor='text'>Add Action Text:</label>
           <input
             type='text'
             name='text'
