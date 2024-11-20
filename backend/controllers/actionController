@@ -7,7 +7,7 @@ const Action = require('../models/actionModel')
 // @route   GET /api/actions
 // @access  Private
 const getActions = asyncHandler(async (req, res) => {
-  const actions = await Action.find({ goal: req.body.goalid })
+  const actions = await Action.find({ goal: req.params.id })
 
   res.status(200).json(actions)
 })
