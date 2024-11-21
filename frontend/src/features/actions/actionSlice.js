@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import actionService from './actionService'
+import goalService from './../goals/goalService'
 
 const initialState = {
+  goalText: '',
   actions: [],
   isError: false,
   isSuccess: false,
@@ -16,6 +18,26 @@ export const createAction = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token
       return await actionService.createAction(actionData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+// Get goal text
+export const getGoalText = createAsyncThunk(
+  'goals/goal/get',
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      const resp = await goalService.getGoal(id, token)
+      return resp.text
     } catch (error) {
       const message =
         (error.response &&
@@ -93,6 +115,19 @@ export const actionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(getGoalText.pending, (state) => {
+      state.isLoading = true
+    })
+    .addCase(getGoalText.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.goalText = action.payload
+    })
+    .addCase(getGoalText.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.goalText = action.payload
+    })
       .addCase(createAction.pending, (state) => {
         state.isLoading = true
       })

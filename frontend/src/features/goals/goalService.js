@@ -38,12 +38,17 @@ const deleteGoal = async (goalId, token) => {
     },
   }
 
-  //Delete the  golas Actions first
-  const responseDeleteActions = await axios.delete(ACTION_API_URL + "goal/" + goalId, config)
+  //Delete the goals Actions first
+  try {
+      
+    const responseDeleteActions = await axios.delete(ACTION_API_URL + "goal/" + goalId, config)
 
-  if(responseDeleteActions.status !== 200)
-  {
-    return responseDeleteActions.data
+    if(responseDeleteActions.status !== 200 && responseDeleteActions.status !== 404)
+    {
+      return responseDeleteActions.data
+    }
+  } catch (error) {
+    console.debug(error)
   }
 
   const response = await axios.delete(GOAL_API_URL + goalId, config)
@@ -59,7 +64,7 @@ const getGoal = async (goalId, token) => {
     },
   }
 
-  const response = await axios.get(GOAL_API_URL + goalId, config)
+  const response = await axios.get(GOAL_API_URL + 'goal/' + goalId, config)
 
   return response.data
 }

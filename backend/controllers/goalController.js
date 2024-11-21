@@ -3,6 +3,20 @@ const asyncHandler = require('express-async-handler')
 const Goal = require('../models/goalModel')
 const User = require('../models/userModel')
 
+// @desc    Get goal
+// @route   GET /api/goals/goal
+// @access  Private
+const getGoal = asyncHandler(async (req, res) => {
+  const goal = await Goal.findById(req.params.id )
+
+  if (!goal) {
+    res.status(400)
+    throw new Error('Goal not found')
+  }
+
+  res.status(200).json(goal)
+})
+
 // @desc    Get goals
 // @route   GET /api/goals
 // @access  Private
@@ -89,6 +103,7 @@ const deleteGoal = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
+  getGoal,
   getGoals,
   setGoal,
   updateGoal,

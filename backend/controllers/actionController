@@ -96,7 +96,6 @@ const deleteActionByGoal = asyncHandler(async (req, res) => {
     throw new Error('Actions not found')
   }
   
-  
    Action.deleteMany(
     {goal})
     .then(
@@ -113,7 +112,6 @@ const deleteActionByGoal = asyncHandler(async (req, res) => {
 
   res.status(200).json({ id: req.params.id })
 })
-
 
 module.exports = {
   getActions,
